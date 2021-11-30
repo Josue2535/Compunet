@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.model.hr.Department;
 import com.example.model.hr.Employee;
+import com.example.model.hr.Employeepayhistory;
 import com.example.model.person.Person;
 import com.example.services.EmployeeServiceIMP;
 import com.example.services.EmployeepayhistoryServiceIMPL;
@@ -149,6 +150,7 @@ public class AdministratorController {
 		}                 
 		return "redirect:/employee/";    
 	}
+	//------------------------------------------history pay---------------------------------------------------------------------
 	@GetMapping("/historypay/")
 	public String indexHistoryPay(Model model) {
 		
@@ -156,7 +158,15 @@ public class AdministratorController {
 		
 		return "admin/indexHistoryPay";
 	}
-	
+	@GetMapping("/historiPay/add/")
+	public String historyAdd(Model model) {
+		
+		Employeepayhistory history = new Employeepayhistory();
+		model.addAttribute("employeepayhistory", history);
+
+		
+		return "admin/addHistoryPay";
+	}
 	
 	
 }
