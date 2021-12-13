@@ -8,21 +8,20 @@ import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.dao.EmployeedepartmenthistoryDAO;
+import com.example.daoimpl.DepartmentDAOimpl;
 import com.example.model.hr.Employee;
 import com.example.repositories.Department;
 import com.example.repositories.Employeedepartmenthistory;
 
 @Service
 public class EmployeedepartmenthistoryServiceIMPL implements com.example.services.EmployeedepartmenthistoryService{
-	private Department deoR;
-	private Employeedepartmenthistory ephR;
-	private com.example.repositories.Employee ER;
+	private DepartmentDAOimpl deoR;
+	private EmployeedepartmenthistoryDAO eR;
 	@Autowired
-	public EmployeedepartmenthistoryServiceIMPL(Department deoR, Employeedepartmenthistory ephR,
-			com.example.repositories.Employee eR) {
+	public EmployeedepartmenthistoryServiceIMPL(EmployeedepartmenthistoryDAO eR, DepartmentDAOimpl deoR) {
 		this.deoR = deoR;
-		this.ephR = ephR;
-		ER = eR;
+		this.eR = eR;
 	}
 
 
@@ -30,21 +29,21 @@ public class EmployeedepartmenthistoryServiceIMPL implements com.example.service
 	@Override
 	public void saveHistory( com.example.model.hr.Employeedepartmenthistory eh) {
 		if(eh.getBusinessentityid() != null) {
-			//if(eh.getShift().getStarttime().equals(Calendar.getInstance().getTime())||eh.getShift().getStarttime().before(Calendar.getInstance().getTime())) {
-				//if(deoR.findById(eh.getDepartment().getDepartmentid())!=null) {
+			if(eh.getShift().getStarttime().equals(Calendar.getInstance().getTime())||eh.getShift().getStarttime().before(Calendar.getInstance().getTime())) {
+				if(deoR.get(eh.getDepartment().getDepartmentid())!=null) {
 					if(eh.getModifieddate().equals(LocalDate.now())) {
 						System.out.println("guardo history");
-						ephR.save(eh);
+						eR.insert(eh);
 					}
-				//}
-			//}
+				}
+			}
 		}
 		
 	}
 
 	@Override
 	public void updateHistoryDepartment(com.example.model.hr.Employeedepartmenthistory historydepartment, Integer id) {
-					com.example.model.hr.Employeedepartmenthistory historydepartment1 = ephR.findById(id).get();
+					com.example.model.hr.Employeedepartmenthistory historydepartment1 = eR.get(id).get();
 					LocalDate date1 = LocalDate.parse(historydepartment.getEnddate1());
 					historydepartment1.setEnddate(date1);
 					
@@ -54,15 +53,15 @@ public class EmployeedepartmenthistoryServiceIMPL implements com.example.service
 	}
 	
 	public Iterable<com.example.model.hr.Employeedepartmenthistory> findAll(){
-		return ephR.findAll();
+		return eR.findAll();
 	}
 	
 	public Long size(){
-		return ephR.count();
+		return (long) eR.findAll().size();
 	}
 	
 	public Optional<com.example.model.hr.Employeedepartmenthistory> findDepartmentHistory(Integer id) {
-		return ephR.findById(id);   
+		return eR.get(id);   
 		}
 
 }

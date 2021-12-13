@@ -7,37 +7,39 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.daoimpl.EmployeeDAOimpl;
+import com.example.daoimpl.EmployeepayhistoryDAOimpl;
 import com.example.model.hr.Department;
 import com.example.repositories.Employee;
 import com.example.repositories.Employeepayhistory;
 @Service
 public class EmployeepayhistoryServiceIMPL implements com.example.services.EmployeepayhistoryService{
-	private Employeepayhistory employPayHistoriR;
-	private Employee employR;
+	private EmployeepayhistoryDAOimpl employPayHistoriR;
+	private EmployeeDAOimpl employR;
 	@Autowired
-	public EmployeepayhistoryServiceIMPL(Employeepayhistory employPayHistoriR,Employee employR) {
+	public EmployeepayhistoryServiceIMPL(EmployeepayhistoryDAOimpl employPayHistoriR,EmployeeDAOimpl employR) {
 		this.employPayHistoriR = employPayHistoriR;
 		this.employR = employR;
 	}
 	@Override
 	public void savePayHistory( com.example.model.hr.Employeepayhistory eh) {
-		//if(employR.findById(eh.getEmployee().getBusinessentityid())!=null) {
-			//if(eh.getRate().intValue()>0) {
+		if(employR.get(eh.getEmployee().getBusinessentityid())!=null) {
+			if(eh.getRate().intValue()>0) {
 				if(eh.getModifieddate().equals(LocalDate.now())){
 					if(eh.getPayfrequency() == 15 || eh.getPayfrequency() == 30 ) {
 						System.out.println("guardo history pay");
-						employPayHistoriR.save(eh);
+						employPayHistoriR.insert(eh);
 					}
 				}else {
 					System.out.println("no guardo history pay");
 				}
 			}
-		//}
+		}
 		
-	//}
+	}
 	@Override
 	public void updateHistoryPay(com.example.model.hr.Employeepayhistory employeepayhistory, Integer id) {
-					com.example.model.hr.Employeepayhistory employeepayhistory1 = employPayHistoriR.findById(id).get();
+					com.example.model.hr.Employeepayhistory employeepayhistory1 = employPayHistoriR.get(id).get();
 					LocalDate date1 = LocalDate.parse(employeepayhistory.getModifieddate1());
 					employeepayhistory1.setModifieddate(date1);
 					employeepayhistory1.setPayfrequency(employeepayhistory.getPayfrequency());
@@ -46,13 +48,13 @@ public class EmployeepayhistoryServiceIMPL implements com.example.services.Emplo
 	
 	@Override
 	public Optional<com.example.model.hr.Employeepayhistory> findPayHistoryById(Integer id) {
-		return employPayHistoriR.findById(id);
+		return employPayHistoriR.get(id);
 	}
 	public Iterable<com.example.model.hr.Employeepayhistory> findAll(){
 		return employPayHistoriR.findAll();
 	}
 	
 	public Long size(){
-		return employPayHistoriR.count();
+		return (long) employPayHistoriR.findAll().size();
 	}
 }

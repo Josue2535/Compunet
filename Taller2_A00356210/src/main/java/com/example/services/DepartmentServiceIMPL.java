@@ -7,20 +7,21 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.daoimpl.DepartmentDAOimpl;
 import com.example.model.hr.Department;
 @Service
 public class DepartmentServiceIMPL implements departmentService{
-	private com.example.repositories.Department dr;
+	private DepartmentDAOimpl dr;
 	@Autowired
-	public DepartmentServiceIMPL(com.example.repositories.Department dr) {
+	public DepartmentServiceIMPL(DepartmentDAOimpl dr) {
 		this.dr = dr;
 	}
 	@Override
 	public void saveDepartment(Department d) {
 		if(d.getModifieddate().equals(LocalDate.now())) {
 			if(d.getName().length()>=5 && d.getGroupname().length()>=5) {
-				dr.save(d);
-				System.out.println("guardo" + dr.count());
+				dr.insert(d);
+				System.out.println("guardo");
 			}else {
 				System.out.println("No guardo");
 			}
@@ -31,7 +32,7 @@ public class DepartmentServiceIMPL implements departmentService{
 	
 	@Override
 	public Department findDepartmentById(Integer id) {
-		return dr.findById(id).get();
+		return dr.get(id).get();
 	}
 	
 	public Iterable<Department> findAll(){
@@ -39,16 +40,13 @@ public class DepartmentServiceIMPL implements departmentService{
 	}
 	
 	public Long size(){
-		return dr.count();
+		return (long) dr.findAll().size();
 	}
 	
-	public Optional<Department> findDepartment(Integer id) {
-		return dr.findById(id);     
-		}
 	
 	@Override
 	public void updateDepartment(Department department, Integer id) {
-					Department department1 = dr.findById(id).get();
+					Department department1 = dr.get(id).get();
 					department1.setName(department.getName());
 					department1.setGroupname(department.getGroupname());
 					LocalDate date1 = LocalDate.parse(department.getModifieddate1());
@@ -56,7 +54,7 @@ public class DepartmentServiceIMPL implements departmentService{
 	}
 	@Override
 	public void upDateDepartment(Department d) {
-		// TODO Auto-generated method stub
+		dr.update(d);
 		
 	}
 }

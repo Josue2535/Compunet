@@ -6,27 +6,28 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.daoimpl.PersonDAOimpl;
 import com.example.model.hr.Employee;
 import com.example.model.person.Person;
 @Service
 public class PersonServiceIMPL implements PersonService{
-	private com.example.repositories.Person personRepo;
+	private PersonDAOimpl personRepo;
 	@Autowired
-	public PersonServiceIMPL(com.example.repositories.Person personRepo) {
+	public PersonServiceIMPL(PersonDAOimpl personRepo) {
 		this.personRepo = personRepo;
 	}
 	@Override
 	public void savePerson(Person p) {
 		if(p.getTitle().length() >= 5) {
 			
-			personRepo.save(p);
+			personRepo.insert(p);
 		}
 		
 	}
 
 	@Override
 	public Person findPersonById(Integer id) {
-		Person temp = personRepo.findById(id).get();
+		Person temp = personRepo.get(id).get();
 		return temp;
 	}
 
@@ -38,17 +39,17 @@ public class PersonServiceIMPL implements PersonService{
 
 	@Override
 	public void deletPerson(Integer id) {
-		personRepo.deleteById(id);
+		personRepo.delete(personRepo.get(id).get());
 	}
 
 	@Override
 	public void addEmployeePerson(Integer id, Employee employee) {
-		personRepo.findById(id).get().setEmployee(employee);
+		personRepo.get(id).get().setEmployee(employee);
 		
 	}
 	@Override
 	public void upDatePerson(Person p, Integer id) {
-		Person temp = personRepo.findById(id).get();
+		Person temp = personRepo.get(id).get();
 		temp.setAdditionalcontactinfo(p.getAdditionalcontactinfo());
 		temp.setBusinessentity(p.getBusinessentity());
 		temp.setBusinessentitycontacts(p.getBusinessentitycontacts());
@@ -67,12 +68,12 @@ public class PersonServiceIMPL implements PersonService{
 		temp.setPersontype(p.getPersontype());
 		temp.setRowguid(p.getRowguid());
 		temp.setTitle(p.getTitle());
-		personRepo.save(temp);
+		personRepo.insert(temp);
 	}
 	@Override
 	public long size() {
 		
-		return personRepo.count();
+		return personRepo.findAll().size();
 	}
 	
 	

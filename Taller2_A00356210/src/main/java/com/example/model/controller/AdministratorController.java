@@ -151,7 +151,7 @@ public class AdministratorController {
 		return "redirect:/employee/";    
 	}
 	
-//------------------------------------------------	
+//------------------------------------------------HISTORYPAY----------------------------------------------
 	
 	@GetMapping("/historypay/")
 	public String indexHistoryPay(Model model) {
@@ -162,7 +162,7 @@ public class AdministratorController {
 	}
 	
 	@GetMapping("/historypay/add/")
-	public String historypayAdd(Model model) {
+	public String historyAdd(Model model) {
 		
 		Employeepayhistory e = new Employeepayhistory();
 		model.addAttribute("historypaya", e);
@@ -172,7 +172,7 @@ public class AdministratorController {
 	}
 	
 	@PostMapping("/historypay/add/post")	
-	public String historypayAdd(@ModelAttribute("historypaya") Employeepayhistory employeehistorypay, BindingResult bindingResult, RedirectAttributes redirectAttrs,
+	public String historyAdd(@ModelAttribute("historypaya") Employeepayhistory employeehistorypay, BindingResult bindingResult, RedirectAttributes redirectAttrs,
 			@RequestParam(value="action", required=true) String action, Model model) throws ParseException, IllegalArgumentException {
 		
 		if(bindingResult.hasErrors()) {
@@ -193,7 +193,7 @@ public class AdministratorController {
 	}
 	
 	@GetMapping("/historypay/updateHistoryPay/{id}")     
-	public String updateHistoryPay(@PathVariable("id")Integer id, Model model) {
+	public String updateHistory(@PathVariable("id")Integer id, Model model) {
 		Optional<Employeepayhistory> employepayhistory1 = employeehistorypayService.findPayHistoryById(id);
 		if(employepayhistory1.isEmpty())
 			throw new IllegalArgumentException("Department ID doesnt exists" + id);
@@ -202,7 +202,7 @@ public class AdministratorController {
 	}
 	
 	@PostMapping("/historypay/updateHistoryPay/{id}")     
-	public String updateHistoryPay(@PathVariable("id") Integer id, @RequestParam(value = "action", required = true) String action, Employeepayhistory employeepayhistory1, BindingResult bindingResult, Model model) throws Exception {
+	public String updateHistory(@PathVariable("id") Integer id, @RequestParam(value = "action", required = true) String action, Employeepayhistory employeepayhistory1, BindingResult bindingResult, Model model) throws Exception {
 		if(bindingResult.hasErrors()) {             
 			model.addAttribute("historypaya", employeehistorypayService.findAll());
 			return "admin/indexHistorypay";         

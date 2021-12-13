@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.daoimpl.DepartmentDAOimpl;
+import com.example.daoimpl.EmployeedepartmenthistoryDAOimpl;
 import com.example.model.hr.Department;
 import com.example.model.hr.Employeedepartmenthistory;
 import com.example.model.person.Person;
@@ -28,15 +30,15 @@ import com.example.services.EmployeedepartmenthistoryServiceIMPL;
 @Controller
 public class OperatorController {
 	
-	DepartmentServiceIMPL departmentService;
-	EmployeedepartmenthistoryServiceIMPL historydepartment;
+	DepartmentDAOimpl departmentService;
+	EmployeedepartmenthistoryDAOimpl historydepartment;
 	
 	@Autowired
-	public OperatorController(DepartmentServiceIMPL departmentService, EmployeedepartmenthistoryServiceIMPL historydepartment) {
+	public OperatorController(DepartmentDAOimpl departmentService, EmployeedepartmenthistoryDAOimpl historydepartment) {
 		this.departmentService = departmentService;
 		this.historydepartment = historydepartment;
 	}
-	
+	//---------------------------------------------- DEPARTMENT ------------------------------------------------------------------
 	@GetMapping("/departments/")
 	public String indexPerson(Model model) {
 		
@@ -70,9 +72,9 @@ public class OperatorController {
 		LocalDate date1 = LocalDate.parse(department.getModifieddate1());
 		
 		department.setModifieddate(date1);
-		department.setDepartmentid(Math.toIntExact(departmentService.size()+1));
-		departmentService.saveDepartment(department);
-		Department a = departmentService.findDepartmentById(1);
+		department.setDepartmentid(Math.toIntExact(departmentService.findAll().size()+1));
+		departmentService.insert(department);
+		Department a = departmentService.get(1).get();
 		System.out.println(a.getName());
 		redirectAttrs.addFlashAttribute("success", "Agregado correctamente");
 		
@@ -83,7 +85,7 @@ public class OperatorController {
 	
 	@GetMapping("department/updateDepartments/{id}")     
 	public String updateDepartments(@PathVariable("id")Integer id, Model model) {
-		Optional<Department> department = departmentService.findDepartment(id);
+		Optional<Department> department = Optional.ofNullable(departmentService.get(id).get());
 		if(department.isEmpty())
 			throw new IllegalArgumentException("Department ID doesnt exists" + id);
 		model.addAttribute("department", department.get()); 
@@ -97,13 +99,13 @@ public class OperatorController {
 			return "operator/indexDepartments";         
 		}                  
 		if(action != null && !action.equals("Cancel")) {             
-			departmentService.updateDepartment(department, id);             
+			departmentService.update(department);             
 			model.addAttribute("departments", departmentService.findAll());         
 			
 		}                 
 		return "redirect:/departments/";    
 	}
-	
+	//---------------------------------------------- hISTORY DEPARTMENT  ------------------------------------------------------------------
 	@GetMapping("/historydepartments/")
 	public String indexHistoryDepartment(Model model) {
 		
@@ -137,10 +139,10 @@ public class OperatorController {
 		
 		historydepartment1.setModifieddate(date1);
 		historydepartment1.setEnddate(date2);
-		historydepartment1.setBusinessentityid(Math.toIntExact(historydepartment.size()+1));
-		historydepartment.saveHistory(historydepartment1);
-		System.out.println(historydepartment.size());
-		System.out.println(historydepartment.findDepartmentHistory(1).get().getEnddate1());
+		historydepartment1.setBusinessentityid(Math.toIntExact(historydepartment.findAll().size()+1));
+		historydepartment.insert(historydepartment1);
+		System.out.println(historydepartment.findAll().size());
+		System.out.println(historydepartment.get(1).get().getEnddate1());
 		System.out.println(historydepartment.findAll());
 		redirectAttrs.addFlashAttribute("success", "Agregado correctamente");
 		return "redirect:/historydepartments/";
@@ -148,7 +150,7 @@ public class OperatorController {
 	
 	@GetMapping("historydepartments/updateHistoryDepartment/{id}")     
 	public String updateHistoryDepartment(@PathVariable("id")Integer id, Model model) {
-		Optional<Employeedepartmenthistory> historydepartmenta = historydepartment.findDepartmentHistory(id);
+		Optional<Employeedepartmenthistory> historydepartmenta = historydepartment.get(id);
 		if(historydepartmenta.isEmpty())
 			throw new IllegalArgumentException("Department ID doesnt exists" + id);
 		model.addAttribute("historydepartment", historydepartmenta.get()); 
@@ -162,7 +164,7 @@ public class OperatorController {
 			return "operator/indexDepartments";         
 		}                  
 		if(action != null && !action.equals("Cancel")) {             
-			historydepartment.updateHistoryDepartment(historydepartmenta, id);             
+			historydepartment.update(historydepartmenta);     
 			model.addAttribute("historydepartment", historydepartment.findAll());         
 			
 		}                 
