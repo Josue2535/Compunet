@@ -20,7 +20,7 @@ public class DepartmentServiceIMPL implements departmentService{
 	public void saveDepartment(Department d) {
 		if(d.getModifieddate().equals(LocalDate.now())) {
 			if(d.getName().length()>=5 && d.getGroupname().length()>=5) {
-				dr.insert(d);
+				dr.save(d);
 				System.out.println("guardo");
 			}else {
 				System.out.println("No guardo");
@@ -31,30 +31,30 @@ public class DepartmentServiceIMPL implements departmentService{
 		
 	
 	@Override
-	public Department findDepartmentById(Integer id) {
-		return dr.get(id).get();
+	public Department findDepartmentById(long id) {
+		return dr.findById(id).get();
 	}
 	
 	public Iterable<Department> findAll(){
-		return dr.findAll();
+		return dr.getAll();
 	}
 	
 	public Long size(){
-		return (long) dr.findAll().size();
+		return (long) dr.getAll().size();
 	}
 	
 	
 	@Override
-	public void updateDepartment(Department department, Integer id) {
-					Department department1 = dr.get(id).get();
-					department1.setName(department.getName());
-					department1.setGroupname(department.getGroupname());
-					LocalDate date1 = LocalDate.parse(department.getModifieddate1());
-					department1.setModifieddate(date1);
+	public void upDateDepartment(Department department) {
+		if(department.getModifieddate().equals(LocalDate.now())) {
+			if(department.getName().length()>=5 && department.getGroupname().length()>=5) {
+				dr.update(department);
+				System.out.println("guardo");
+			}else {
+				System.out.println("No guardo");
+			}
 	}
-	@Override
-	public void upDateDepartment(Department d) {
-		dr.update(d);
 		
 	}
+	
 }
