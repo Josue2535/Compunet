@@ -8,13 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.daoimpl.PersonDAOimpl;
 import com.example.model.hr.Department;
 import com.example.model.hr.Employee;
 import com.example.model.hr.Employeepayhistory;
@@ -26,74 +30,32 @@ import com.example.services.PersonServiceIMPL;
 @Controller
 public class PersonController {
 	
-	EmployeeServiceIMP employeeService;
-	PersonServiceIMPL personService;
-	EmployeepayhistoryServiceIMPL employeehistorypayService;
+	PersonDAOimpl personService;
 	
 	@Autowired
-	public PersonController(EmployeeServiceIMP employeeService, EmployeepayhistoryServiceIMPL employeehistorypayService, PersonServiceIMPL personService) {
-		this.employeeService = employeeService;
+	public PersonController(PersonDAOimpl personService) {
 		this.personService = personService;
-		this.employeehistorypayService = employeehistorypayService;
 	}
 	//----------------------------------------PERSON----------------------------------------------
-	@GetMapping("/person/")
-	public String indexPerson(Model model) {
-		
-		model.addAttribute("person", personService.findAll());
-		
-		return "admin/indexPerson";
+	@GetMapping
+	public Iterable<Person> indexDepartmentHistory() {
+		return personService.getAll();
 	}
-	
-	@GetMapping("/person/add/")
-	public String personAdd(Model model) {
-		
-		Person p = new Person();
-		model.addAttribute("person", p);
+	@PutMapping
+	public void updateDepartment(@RequestBody Person de) {
+		personService.update(de);
+	}
 
-		
-		return "admin/addPerson";
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable("id") Long id) {
+		personService.deleteById(id);
 	}
-	@PostMapping("/person/add/post")	
-	public String personAdd(@ModelAttribute("person") Person person, BindingResult bindingResult, RedirectAttributes redirectAttrs,
-			@RequestParam(value="action", required=true) String action, Model model) throws ParseException, IllegalArgumentException {
-		
-		if(bindingResult.hasErrors()) {
-			redirectAttrs.addFlashAttribute("error", "Error al guardar");
-			System.out.println("Error");
-			return "/person/";
-		}
-		person.setBusinessentityid(Math.toIntExact(personService.size()+1));
-		personService.savePerson(person);
-		redirectAttrs.addFlashAttribute("success", "Agregado correctamente");
-		
-		
-		
-		return "redirect:/person/";
+
+	@GetMapping("/{id}")
+	public Person getById(@PathVariable("id") Long id) {
+		return personService.get(id).orElseThrow(() -> new IllegalArgumentException("Invalid id"));
 	}
 	
-	@GetMapping("person/updatePerson/{id}")     
-	public String updatePerson(@PathVariable("id")Integer id, Model model) {
-		Optional<Person> person = Optional.of(personService.findPersonById(id));
-		if(person.isEmpty())
-			throw new IllegalArgumentException("Product ID doesnt exists" + id);
-		model.addAttribute("person", person.get()); 
-		return "admin/updatePerson";     
-	}
-	
-	@PostMapping("/person/updateperson/{id}")     
-	public String updatePerson(@PathVariable("id") Integer id, @RequestParam(value = "action", required = true) String action, Person person, BindingResult bindingResult, Model model) throws Exception {
-		if(bindingResult.hasErrors()) {             
-			model.addAttribute("person", personService.findAll());
-			return "admin/indexPerson";         
-		}                  
-		if(action != null && !action.equals("Cancel")) {             
-			personService.upDatePerson(person,id);             
-			model.addAttribute("person", personService.findAll());         
-			
-		}                 
-		return "redirect:/person/";    
-	}
 	
 	
 }

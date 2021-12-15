@@ -51,7 +51,7 @@ public class DepartmentController {
 		return departmentService.getAll();
 	}
 	@PutMapping
-	public void updateAutotransition(@RequestBody Department de) {
+	public void updateDepartment(@RequestBody Department de) {
 		departmentService.update(de);
 	}
 

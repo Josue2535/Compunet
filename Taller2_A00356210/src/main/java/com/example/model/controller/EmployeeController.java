@@ -64,11 +64,14 @@ public class EmployeeController {
 		return employeeService.get(id).orElseThrow(() -> new IllegalArgumentException("Invalid id"));
 	}
 
-	@GetMapping("/search/groupname")
-	public List<Employee> getAllByNameGroup(@RequestParam("date1") Date date1,@RequestParam("date2") Date date2) {
+	@GetMapping("/search/betwendates")
+	public List<Employee> getAllByDates(@RequestParam("date1") Date date1,@RequestParam("date2") Date date2) {
 		return employeeService.findBetwenDate(date1.toString(), date2.toString());
 	}
-	
+	@GetMapping("/search/date")
+	public List<Employee> getAllByNameGroup(@RequestParam("date1") Date date1) {
+		return employeeService.findByDate(date1.toString());
+	}
 	
 	
 }
