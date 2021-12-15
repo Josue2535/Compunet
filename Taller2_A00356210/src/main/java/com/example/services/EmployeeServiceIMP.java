@@ -25,7 +25,7 @@ public class EmployeeServiceIMP implements EmployeeService {
 		if(personR.get(e.getBusinessentityid()) != null) {
 			
 				if(e.getJobtitle().length() >= 5) {
-					employeeR.insert(e);
+					employeeR.save(e);
 				}
 				
 			
@@ -42,25 +42,7 @@ public class EmployeeServiceIMP implements EmployeeService {
 		if(personR.get(e.getBusinessentityid()) != null) {
 			
 				if(e.getJobtitle().length() >= 5) {
-					Optional<Employee> temp = employeeR.get(id);
-					temp.get().setBirthdate(e.getBirthdate());
-					temp.get().setCurrentflag(e.getCurrentflag());
-					temp.get().setEmployeedepartmenthistories(e.getEmployeedepartmenthistories());
-					temp.get().setEmployeepayhistories(e.getEmployeepayhistories());
-					temp.get().setGender(e.getGender());
-					temp.get().setHiredate(e.getHiredate());
-					temp.get().setJobcandidates(e.getJobcandidates());
-					temp.get().setJobtitle(e.getJobtitle());
-					temp.get().setLoginid(e.getLoginid());
-					temp.get().setMaritalstatus(e.getMaritalstatus());
-					temp.get().setModifieddate(e.getModifieddate());
-					temp.get().setNationalidnumber(e.getNationalidnumber());
-					temp.get().setOrganizationnode(e.getOrganizationnode());
-					temp.get().setRowguid(e.getRowguid());
-					temp.get().setSalariedflag(e.getSalariedflag());
-					temp.get().setSickleavehours(e.getSickleavehours());
-					temp.get().setVacationhours(e.getVacationhours());
-					employeeR.insert(e);
+					employeeR.update(e);
 				}
 				
 			
@@ -70,7 +52,7 @@ public class EmployeeServiceIMP implements EmployeeService {
 	}
 	
 	public Iterable<Employee> findAll(){
-		return employeeR.findAll();
+		return employeeR.getAll();
 	}
 	
 	@Override
@@ -80,7 +62,7 @@ public class EmployeeServiceIMP implements EmployeeService {
 	}
 	public long size() {
 		
-		return employeeR.findAll().size();
+		return employeeR.getAll().size();
 	}
 	@Override
 	public void upDateEmployee(Employee e) {

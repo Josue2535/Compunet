@@ -33,7 +33,7 @@ public class EmployeedepartmenthistoryServiceIMPL implements com.example.service
 				if(deoR.get(eh.getDepartment().getDepartmentid())!=null) {
 					if(eh.getModifieddate().equals(LocalDate.now())) {
 						System.out.println("guardo history");
-						eR.insert(eh);
+						eR.save(eh);
 					}
 				}
 			}
@@ -53,11 +53,11 @@ public class EmployeedepartmenthistoryServiceIMPL implements com.example.service
 	}
 	
 	public Iterable<com.example.model.hr.Employeedepartmenthistory> findAll(){
-		return eR.findAll();
+		return eR.getAll();
 	}
 	
 	public Long size(){
-		return (long) eR.findAll().size();
+		return (long) eR.getAll().size();
 	}
 	
 	public Optional<com.example.model.hr.Employeedepartmenthistory> findDepartmentHistory(Integer id) {

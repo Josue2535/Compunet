@@ -55,12 +55,12 @@ public class EmployeeController {
 	}
 
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") Long id) {
+	public void delete(@PathVariable("id") Integer id) {
 		employeeService.deleteById(id);
 	}
 
 	@GetMapping("/{id}")
-	public Employee getById(@PathVariable("id") Long id) {
+	public Employee getById(@PathVariable("id") Integer id) {
 		return employeeService.get(id).orElseThrow(() -> new IllegalArgumentException("Invalid id"));
 	}
 

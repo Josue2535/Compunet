@@ -52,12 +52,12 @@ public class HistoryDepartmentController {
 	}
 
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") Long id) {
+	public void delete(@PathVariable("id") Integer id) {
 		historydepartment.deleteById(id);
 	}
 
 	@GetMapping("/{id}")
-	public Employeedepartmenthistory getById(@PathVariable("id") Long id) {
+	public Employeedepartmenthistory getById(@PathVariable("id") Integer id) {
 		return historydepartment.get(id).orElseThrow(() -> new IllegalArgumentException("Invalid id"));
 	}
 }

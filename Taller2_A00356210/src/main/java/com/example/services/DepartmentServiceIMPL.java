@@ -31,7 +31,7 @@ public class DepartmentServiceIMPL implements departmentService{
 		
 	
 	@Override
-	public Department findDepartmentById(long id) {
+	public Department findDepartmentById(Integer id) {
 		return dr.findById(id).get();
 	}
 	

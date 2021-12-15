@@ -7,5 +7,5 @@ import com.example.model.hr.Department;
 public interface departmentService{
 	public void saveDepartment(Department d);
 	public void upDateDepartment(Department d);
-	public Department findDepartmentById(long id);
+	public Department findDepartmentById(Integer id);
 }

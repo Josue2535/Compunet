@@ -9,5 +9,5 @@ import com.example.model.hr.Employeepayhistory;
 public interface EmployeepayhistoryService{
 	public void savePayHistory(Employeepayhistory eh);
 	public Optional<Employeepayhistory> findPayHistoryById(Integer id);
-	void updateHistoryPay(Employeepayhistory employeepayhistory, Integer id);
+	void updateHistoryPay(Employeepayhistory employeepayhistory);
 }

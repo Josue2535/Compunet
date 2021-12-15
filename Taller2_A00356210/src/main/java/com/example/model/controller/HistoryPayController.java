@@ -53,12 +53,12 @@ public class HistoryPayController {
 	}
 
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") Long id) {
+	public void delete(@PathVariable("id") Integer id) {
 		employeehistorypayService.deleteById(id);
 	}
 
 	@GetMapping("/{id}")
-	public Employeepayhistory getById(@PathVariable("id") Long id) {
+	public Employeepayhistory getById(@PathVariable("id") Integer id) {
 		return employeehistorypayService.get(id).orElseThrow(() -> new IllegalArgumentException("Invalid id"));
 	}
 	

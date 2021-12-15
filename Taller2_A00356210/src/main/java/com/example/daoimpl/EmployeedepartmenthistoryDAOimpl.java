@@ -28,7 +28,7 @@ public class EmployeedepartmenthistoryDAOimpl implements Employeedepartmenthisto
 	}
 	
 	@Override
-	public Optional<Employeedepartmenthistory> get(Long id) {
+	public Optional<Employeedepartmenthistory> get(Integer id) {
 		return Optional.ofNullable(entityManager.find(Employeedepartmenthistory.class, id));
 	}
 
@@ -52,7 +52,7 @@ public class EmployeedepartmenthistoryDAOimpl implements Employeedepartmenthisto
 
 	@Override
 	@Transactional
-	public void deleteById(Long locId) {
+	public void deleteById(Integer locId) {
 		Employeedepartmenthistory loc = get(locId).orElse(null);
 		executeInsideTransaction(entityManager -> entityManager.remove(loc));
 	}

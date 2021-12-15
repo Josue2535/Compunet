@@ -28,7 +28,7 @@ public class EmployeepayhistoryServiceIMPL implements com.example.services.Emplo
 				if(eh.getModifieddate().equals(LocalDate.now())){
 					if(eh.getPayfrequency() == 15 || eh.getPayfrequency() == 30 ) {
 						System.out.println("guardo history pay");
-						employPayHistoriR.insert(eh);
+						employPayHistoriR.save(eh);
 					}
 				}else {
 					System.out.println("no guardo history pay");
@@ -38,11 +38,19 @@ public class EmployeepayhistoryServiceIMPL implements com.example.services.Emplo
 		
 	}
 	@Override
-	public void updateHistoryPay(com.example.model.hr.Employeepayhistory employeepayhistory, Integer id) {
-					com.example.model.hr.Employeepayhistory employeepayhistory1 = employPayHistoriR.get(id).get();
-					LocalDate date1 = LocalDate.parse(employeepayhistory.getModifieddate1());
-					employeepayhistory1.setModifieddate(date1);
-					employeepayhistory1.setPayfrequency(employeepayhistory.getPayfrequency());
+	public void updateHistoryPay(com.example.model.hr.Employeepayhistory employeepayhistory) {
+		if(employR.get(employeepayhistory.getEmployee().getBusinessentityid())!=null) {
+			if(employeepayhistory.getRate().intValue()>0) {
+				if(employeepayhistory.getModifieddate().equals(LocalDate.now())){
+					if(employeepayhistory.getPayfrequency() == 15 || employeepayhistory.getPayfrequency() == 30 ) {
+						System.out.println("guardo history pay");
+						employPayHistoriR.update(employeepayhistory);
+					}
+				}else {
+					System.out.println("no guardo history pay");
+				}
+			}
+		}
 					
 	}
 	
@@ -51,10 +59,10 @@ public class EmployeepayhistoryServiceIMPL implements com.example.services.Emplo
 		return employPayHistoriR.get(id);
 	}
 	public Iterable<com.example.model.hr.Employeepayhistory> findAll(){
-		return employPayHistoriR.findAll();
+		return employPayHistoriR.getAll();
 	}
 	
 	public Long size(){
-		return (long) employPayHistoriR.findAll().size();
+		return (long) employPayHistoriR.getAll().size();
 	}
 }

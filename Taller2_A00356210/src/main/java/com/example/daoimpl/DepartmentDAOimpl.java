@@ -31,11 +31,11 @@ public class DepartmentDAOimpl implements DeparmentDAO {
 	}
 
 	@Override
-	public Optional<Department> get(Long id) {
+	public Optional<Department> get(Integer id) {
 		return Optional.ofNullable(entityManager.find(Department.class, id));
 	}
 	
-	public Optional<Department> findById(Long id) {
+	public Optional<Department> findById(Integer id) {
 		return Optional.ofNullable(entityManager.find(Department.class, id));
 	}
 
@@ -59,7 +59,7 @@ public class DepartmentDAOimpl implements DeparmentDAO {
 
 	@Override
 	@Transactional
-	public void deleteById(Long autId) {
+	public void deleteById(Integer autId) {
 		Department aut = get(autId).orElse(null);
 		executeInsideTransaction(entityManager -> entityManager.remove(aut));
 	}

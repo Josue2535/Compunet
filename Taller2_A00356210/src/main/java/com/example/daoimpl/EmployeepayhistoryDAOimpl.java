@@ -29,7 +29,7 @@ public class EmployeepayhistoryDAOimpl implements EmployeepayhistoryDAO{
 	}
 	
 	@Override
-	public Optional<Employeepayhistory> get(Long id) {
+	public Optional<Employeepayhistory> get(Integer id) {
 		return Optional.ofNullable(entityManager.find(Employeepayhistory.class, id));
 	}
 
@@ -53,7 +53,7 @@ public class EmployeepayhistoryDAOimpl implements EmployeepayhistoryDAO{
 
 	@Override
 	@Transactional
-	public void deleteById(Long locId) {
+	public void deleteById(Integer locId) {
 		Employeepayhistory loc = get(locId).orElse(null);
 		executeInsideTransaction(entityManager -> entityManager.remove(loc));
 	}
