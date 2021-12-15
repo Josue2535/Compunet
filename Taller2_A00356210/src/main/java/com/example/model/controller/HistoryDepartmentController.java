@@ -28,84 +28,17 @@ import com.example.services.EmployeedepartmenthistoryServiceIMPL;
 
 
 @Controller
-public class OperatorController {
+public class HistoryDepartmentController {
 	
 	DepartmentDAOimpl departmentService;
 	EmployeedepartmenthistoryDAOimpl historydepartment;
 	
 	@Autowired
-	public OperatorController(DepartmentDAOimpl departmentService, EmployeedepartmenthistoryDAOimpl historydepartment) {
+	public HistoryDepartmentController(DepartmentDAOimpl departmentService, EmployeedepartmenthistoryDAOimpl historydepartment) {
 		this.departmentService = departmentService;
 		this.historydepartment = historydepartment;
 	}
-	//---------------------------------------------- DEPARTMENT ------------------------------------------------------------------
-	@GetMapping("/departments/")
-	public String indexPerson(Model model) {
-		
-		model.addAttribute("department", departmentService.findAll());
-		
-		return "operator/indexDepartments";
-	}
 	
-	@GetMapping("/department/add/")
-	public String departmentAdd(Model model) {
-		
-		Department d = new Department();
-		
-		model.addAttribute("department", d);
-
-		
-		return "operator/addDepartments";
-	}
-	
-	@PostMapping("/department/add/post")	
-	public String addDeparment(@ModelAttribute("department") Department department, BindingResult bindingResult, RedirectAttributes redirectAttrs,
-			@RequestParam(value="action", required=true) String action, Model model) throws ParseException, IllegalArgumentException {
-		
-		if(bindingResult.hasErrors()) {
-			redirectAttrs.addFlashAttribute("error", "Error al guardar");
-			System.out.println("Error");
-			return "/departments/";
-		}
-		
-		
-		LocalDate date1 = LocalDate.parse(department.getModifieddate1());
-		
-		department.setModifieddate(date1);
-		department.setDepartmentid(Math.toIntExact(departmentService.findAll().size()+1));
-		departmentService.insert(department);
-		Department a = departmentService.get(1).get();
-		System.out.println(a.getName());
-		redirectAttrs.addFlashAttribute("success", "Agregado correctamente");
-		
-		
-		
-		return "redirect:/departments/";
-	}
-	
-	@GetMapping("department/updateDepartments/{id}")     
-	public String updateDepartments(@PathVariable("id")Integer id, Model model) {
-		Optional<Department> department = Optional.ofNullable(departmentService.get(id).get());
-		if(department.isEmpty())
-			throw new IllegalArgumentException("Department ID doesnt exists" + id);
-		model.addAttribute("department", department.get()); 
-		return "operator/updateDepartments";     
-	}
-	
-	@PostMapping("/department/updateDepartments/{id}")     
-	public String updateDepartments(@PathVariable("id") Integer id, @RequestParam(value = "action", required = true) String action, Department department, BindingResult bindingResult, Model model) throws Exception {
-		if(bindingResult.hasErrors()) {             
-			model.addAttribute("department", departmentService.findAll());
-			return "operator/indexDepartments";         
-		}                  
-		if(action != null && !action.equals("Cancel")) {             
-			departmentService.update(department);             
-			model.addAttribute("departments", departmentService.findAll());         
-			
-		}                 
-		return "redirect:/departments/";    
-	}
-	//---------------------------------------------- hISTORY DEPARTMENT  ------------------------------------------------------------------
 	@GetMapping("/historydepartments/")
 	public String indexHistoryDepartment(Model model) {
 		

@@ -86,10 +86,6 @@ public class UserRrepositoryImp implements UserRepository{
 		}
 		return null;
 	}
-	@Override
-	public void deleteAllById(Iterable<? extends Integer> ids) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }

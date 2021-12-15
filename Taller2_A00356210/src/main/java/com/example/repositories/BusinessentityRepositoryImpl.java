@@ -85,10 +85,5 @@ public class BusinessentityRepositoryImpl implements Businessentity{
 		
 	}
 
-	@Override
-	public void deleteAllById(Iterable<? extends Integer> ids) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

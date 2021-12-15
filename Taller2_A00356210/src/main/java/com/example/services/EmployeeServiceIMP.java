@@ -74,7 +74,7 @@ public class EmployeeServiceIMP implements EmployeeService {
 	}
 	
 	@Override
-	public void addPersonEmployee(Integer id, Person person) {
+	public void addPersonEmployee(Integer id, Integer person) {
 		employeeR.get(id).get().setPerson(person);
 		
 	}

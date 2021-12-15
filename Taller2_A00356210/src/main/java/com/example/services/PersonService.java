@@ -13,7 +13,7 @@ public interface PersonService {
 	public Person findPersonById(Integer id);
 	public ArrayList<Person>findAll();
 	public void deletPerson(Integer id);
-	public void addEmployeePerson(Integer id, Employee employee);
+	public void addEmployeePerson(Integer id, Integer employee);
 	public void upDatePerson(Person p, Integer id);
 	public long size();
 	 

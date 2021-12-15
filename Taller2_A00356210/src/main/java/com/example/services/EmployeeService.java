@@ -8,6 +8,6 @@ import com.example.model.person.Person;
 public interface EmployeeService {
 	public void saveEmployee(Employee e);
 	public void upDateEmployee(Employee e);
-	public void addPersonEmployee(Integer id, Person person);
+	public void addPersonEmployee(Integer id, Integer person);
 	void upDateEmployee(Employee e, Integer id);
 }

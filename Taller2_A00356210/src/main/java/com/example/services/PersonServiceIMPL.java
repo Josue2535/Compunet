@@ -43,7 +43,7 @@ public class PersonServiceIMPL implements PersonService{
 	}
 
 	@Override
-	public void addEmployeePerson(Integer id, Employee employee) {
+	public void addEmployeePerson(Integer id, Integer employee) {
 		personRepo.get(id).get().setEmployee(employee);
 		
 	}

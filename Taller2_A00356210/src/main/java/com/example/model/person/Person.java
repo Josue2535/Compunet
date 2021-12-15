@@ -56,17 +56,17 @@ public class Person implements Serializable {
 	private Integer rowguid;
 	
 	@OneToOne
-	private Employee employee;
+	private Integer employee;
 
 	private String suffix;
 	
 	private String title;
 	
-	public Employee getEmployee() {
+	public Integer getEmployee() {
 		return employee;
 	}
 
-	public void setEmployee(Employee employee) {
+	public void setEmployee(Integer employee) {
 		this.employee = employee;
 	}
 

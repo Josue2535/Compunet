@@ -3,14 +3,15 @@ package com.example.dao;
 import java.util.List;
 import java.util.Optional;
 
-public interface DAO<T,K> {
-    void insert(T a);
-    
-    void update(T a);
-    
-    void delete(T a);
-    
-    List<T> findAll();
-    
-    Optional<T> get(K id);
+public interface DAO<T> {
+	Optional<T> get(Long id);
+
+	List<T> getAll();
+
+	void save(T t);
+
+	//void update(T t, String[] params);
+	void update(T t);
+	
+	void deleteById(Long t);
 }

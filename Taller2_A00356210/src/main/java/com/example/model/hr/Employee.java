@@ -65,13 +65,13 @@ public class Employee implements Serializable {
 	private Integer vacationhours;
 	
 	@OneToOne
-	private Person person;
+	private Integer person;
 	
-	public Person getPerson() {
+	public Integer getPerson() {
 		return person;
 	}
 	
-	public void setPerson(Person person) {
+	public void setPerson(Integer person) {
 		this.person = person;
 	}
 	

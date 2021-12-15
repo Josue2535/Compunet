@@ -1,73 +1,88 @@
 package com.example.daoimpl;
 
+
+
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.transaction.Transactional;
 
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.dao.DeparmentDAO;
 import com.example.model.hr.Department;
-import com.example.model.hr.Employee;
+
+
+
 @Repository
-@Transactional
-public class DepartmentDAOimpl implements DeparmentDAO{
-
-	@PersistenceUnit
-	private EntityManagerFactory emf;
+@Scope("singleton")
+public class DepartmentDAOimpl implements DeparmentDAO {
 	
-	@Override
-	public void insert(Department a) {
-		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
-	    em.persist(a);
-	    em.getTransaction().commit();
-	    em.close();
+	@PersistenceContext
+	private EntityManager entityManager;
+
+	public DepartmentDAOimpl() {
+
 	}
 
 	@Override
-	public void update(Department a) {
-		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
-	    em.merge(a);
-	    em.getTransaction().commit();
-	    em.close();
+	public Optional<Department> get(Long id) {
+		return Optional.ofNullable(entityManager.find(Department.class, id));
+	}
+	
+	public Optional<Department> findById(Long id) {
+		return Optional.ofNullable(entityManager.find(Department.class, id));
 	}
 
 	@Override
-	public void delete(Department a) {
-		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
-	    em.merge(a);
-	    em.getTransaction().commit();
-	    em.close();
-		
-	}
-
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Department> findAll() {
-		EntityManager em = emf.createEntityManager();
-		Query query = em.createQuery("SELECT de FROM Department de");
-        return query.getResultList();	
-    }
-	@SuppressWarnings("unchecked")
-	public List<Department> findByNameGrup(String name) {
-		EntityManager em = emf.createEntityManager();
-
-		Query query = em.createQuery("SELECT de FROM Department em WHERE de.grupname = " + "\'"+name+"\'");
-        return query.getResultList();
+	public List<Department> getAll() {
+		Query query = entityManager.createQuery("SELECT a FROM Autotransition a");
+		return query.getResultList();
 	}
 
 	@Override
-	public Optional<Department> get(Integer id) {
-		EntityManager em = emf.createEntityManager();
-		return Optional.ofNullable(em.find(Department.class, id));
+	@Transactional
+	public void save(Department aut) {
+		executeInsideTransaction(entityManager -> entityManager.persist(aut));
 	}
 
+	@Override
+	@Transactional
+	public void update(Department aut) {
+		executeInsideTransaction(entityManager -> entityManager.merge(aut));
+	}
+
+	@Override
+	@Transactional
+	public void deleteById(Long autId) {
+		Department aut = get(autId).orElse(null);
+		executeInsideTransaction(entityManager -> entityManager.remove(aut));
+	}
+	
+	private void executeInsideTransaction(Consumer<EntityManager> action) {
+		//EntityTransaction tx = entityManager.getTransaction();
+		try {
+			//tx.begin();
+			action.accept(entityManager);
+			//tx.commit(); 
+		}
+		catch (RuntimeException e) {
+			//tx.rollback();
+			throw e;
+		}
+	}
+
+	public List<Department> findAllByNameGrup(String nameGrup) {
+		Query query = entityManager.createQuery("SELECT a FROM Department a WHERE a..groupname = :grupname");
+		query.setParameter("grupname", nameGrup);
+		return query.getResultList();
+	}
+	
+
+	
 }

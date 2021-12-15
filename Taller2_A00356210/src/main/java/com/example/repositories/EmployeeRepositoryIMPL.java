@@ -84,10 +84,6 @@ public class EmployeeRepositoryIMPL implements Employee{
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public void deleteAllById(Iterable<? extends Integer> ids) {
-		// TODO Auto-generated method stub
-		
-	}
+
 
 }

@@ -94,12 +94,7 @@ public class PersonRepositoryIMPL implements Person{
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public void deleteAllById(Iterable<? extends Integer> ids) {
-		// TODO Auto-generated method stub
-		
-	}
-	
+
 	
 
 }
