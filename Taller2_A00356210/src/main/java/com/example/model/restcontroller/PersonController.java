@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -28,32 +29,41 @@ import com.example.services.EmployeepayhistoryServiceIMPL;
 import com.example.services.PersonServiceIMPL;
 
 @Controller
+@RequestMapping("/api/person/")
 public class PersonController {
 	
-	PersonDAOimpl personService;
+	PersonServiceIMPL personService;
 	
 	@Autowired
-	public PersonController(PersonDAOimpl personService) {
+	public PersonController(PersonServiceIMPL personService) {
 		this.personService = personService;
 	}
 	//----------------------------------------PERSON----------------------------------------------
 	@GetMapping
 	public Iterable<Person> indexDepartmentHistory() {
-		return personService.getAll();
+		return personService.findAll();
 	}
 	@PutMapping
 	public void updateDepartment(@RequestBody Person de) {
-		personService.update(de);
+		personService.upDatePerson(de);
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable("id") Integer id) {
+<<<<<<< HEAD:Taller2_A00356210/src/main/java/com/example/model/restcontroller/PersonController.java
 		personService.deleteById(id);
+=======
+		personService.deletPerson(id);
+>>>>>>> 8517ef85b2777b6a6edd6dd5e584e0b90bc21bb1:Taller2_A00356210/src/main/java/com/example/model/controller/PersonController.java
 	}
 
 	@GetMapping("/{id}")
 	public Person getById(@PathVariable("id") Integer id) {
+<<<<<<< HEAD:Taller2_A00356210/src/main/java/com/example/model/restcontroller/PersonController.java
 		return personService.get(id).orElseThrow(() -> new IllegalArgumentException("Invalid id"));
+=======
+		return personService.findPersonById(id);
+>>>>>>> 8517ef85b2777b6a6edd6dd5e584e0b90bc21bb1:Taller2_A00356210/src/main/java/com/example/model/controller/PersonController.java
 	}
 	
 	

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.example.daoimpl.PersonDAOimpl;
 import com.example.model.hr.Employee;
 import com.example.model.person.Person;
+
+import net.bytebuddy.implementation.bytecode.Throw;
 @Service
 public class PersonServiceIMPL implements PersonService{
 	private PersonDAOimpl personRepo;
@@ -27,7 +29,11 @@ public class PersonServiceIMPL implements PersonService{
 
 	@Override
 	public Person findPersonById(Integer id) {
+		
 		Person temp = personRepo.get(id).get();
+		if(temp == null) {
+			throw new NullPointerException();
+		}
 		return temp;
 	}
 

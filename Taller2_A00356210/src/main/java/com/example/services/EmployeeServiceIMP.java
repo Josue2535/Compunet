@@ -1,6 +1,7 @@
 package com.example.services;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,17 @@ public class EmployeeServiceIMP implements EmployeeService {
 	public void upDateEmployee(Employee e) {
 		employeeR.update(e);
 		
+	}
+	public void deleteById(Integer id) {
+		employeeR.deleteById(id);
+		
+	}
+	public List<Employee> findBetwenDate(String string, String string2) {
+		return employeeR.findBetwenDate(string, string2);
+	}
+	public List<Employee> findByDate(String string) {
+		
+		return employeeR.findByDate(string);
 	}
 
 }
