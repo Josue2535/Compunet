@@ -52,7 +52,7 @@ public class EmployeeServiceIMP implements EmployeeService {
 		
 	}
 	
-	public Iterable<Employee> findAll(){
+	public List<Employee> findAll(){
 		return employeeR.getAll();
 	}
 	

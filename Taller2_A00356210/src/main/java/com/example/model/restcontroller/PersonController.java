@@ -2,6 +2,7 @@ package com.example.model.restcontroller;
 
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,16 +41,16 @@ public class PersonController {
 	}
 	//----------------------------------------PERSON----------------------------------------------
 	@GetMapping
-	public Iterable<Person> indexDepartmentHistory() {
+	public List<Person> indexDepartmentHistory() {
 		return personService.findAll();
 	}
 	@PutMapping
-	public void updateDepartment(@RequestBody Person de) {
+	public void updatePerson(@RequestBody Person de) {
 		personService.upDatePerson(de);
 	}
 
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") Integer id) {
+	public void deletePerson(@PathVariable("id") Integer id) {
 		personService.deleteById(id);
 		personService.deletPerson(id);
 	}

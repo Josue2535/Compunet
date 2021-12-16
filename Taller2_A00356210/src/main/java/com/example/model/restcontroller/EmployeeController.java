@@ -42,21 +42,21 @@ public class EmployeeController {
 	}
 	
 	@GetMapping
-	public Iterable<Employee> indexDepartment() {
+	public List<Employee> indexEmployee(){
 		return employeeService.findAll();
 	}
 	@PutMapping
-	public void updateAutotransition(@RequestBody Employee de) {
+	public void updateEmployee(@RequestBody Employee de) {
 		employeeService.upDateEmployee(de);
 	}
 
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") Integer id) {
+	public void deleteEmployee(@PathVariable("id") Integer id) {
 		employeeService.deleteById(id);
 	}
 
 	@GetMapping("/{id}")
-	public Employee getById(@PathVariable("id") Integer id) {
+	public Employee getEmployeeById(@PathVariable("id") Integer id) {
 		Employee temp = employeeService.findEmployeeByiD(id);
 		if(temp == null) {
 			throw new IllegalArgumentException("Invalid id");
@@ -65,11 +65,11 @@ public class EmployeeController {
 	}
 
 	@GetMapping("/search/betwendates")
-	public List<Employee> getAllByDates(@RequestParam("date1") Date date1,@RequestParam("date2") Date date2) {
+	public List<Employee> getAllBetwenDates(@RequestParam("date1") Date date1,@RequestParam("date2") Date date2) {
 		return employeeService.findBetwenDate(date1.toString(), date2.toString());
 	}
 	@GetMapping("/search/date")
-	public List<Employee> getAllByNameGroup(@RequestParam("date1") Date date1) {
+	public List<Employee> getAllByDate(@RequestParam("date1") Date date1) {
 		return employeeService.findByDate(date1.toString());
 	}
 	

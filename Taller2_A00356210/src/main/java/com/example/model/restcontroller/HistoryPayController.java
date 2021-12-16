@@ -44,16 +44,16 @@ public class HistoryPayController {
 	
 	
 	@GetMapping
-	public List<Employeepayhistory> indexDepartmentHistory() {
+	public List<Employeepayhistory> indexPayHistory() {
 		return employeehistorypayService.findAll();
 	}
 	@PutMapping
-	public void updateDepartment(@RequestBody Employeepayhistory de) {
+	public void updatePayHistory(@RequestBody Employeepayhistory de) {
 		employeehistorypayService.updateHistoryPay(de);
 	}
 
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") Integer id) {
+	public void deletePayHistory(@PathVariable("id") Integer id) {
 		employeehistorypayService.deleteById(id);
 	}
 
