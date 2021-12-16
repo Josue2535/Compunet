@@ -20,10 +20,10 @@ public interface BusinessDelegate {
 	List<Department> getAllByNameGroup(String name);
 	
 	//Employeedepartmenthistory
-	Iterable<Employeedepartmenthistory> indexDepartmentHistory();
+	List<Employeedepartmenthistory> indexDepartmentHistory();
 	void updateDepartmentHistory(Employeedepartmenthistory de);
 	void deleteDepartmentHistory(Integer id);
-	Employeedepartmenthistory getById(@PathVariable("id") Integer id);
+	Employeedepartmenthistory getByIdDepartmentHistory( Integer id);
 	
 	//Employeepayhistory
 	
