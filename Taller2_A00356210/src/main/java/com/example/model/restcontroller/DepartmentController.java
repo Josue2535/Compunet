@@ -37,32 +37,32 @@ import com.example.services.EmployeedepartmenthistoryServiceIMPL;
 @RequestMapping("/api/departments/")
 public class DepartmentController {
 	
-	DepartmentDAOimpl departmentService;
+	DepartmentServiceIMPL departmentService;
 	EmployeedepartmenthistoryDAOimpl historydepartment;
 	
 	@Autowired
-	public DepartmentController(DepartmentDAOimpl departmentService, EmployeedepartmenthistoryDAOimpl historydepartment) {
+	public DepartmentController(DepartmentServiceIMPL departmentService, EmployeedepartmenthistoryDAOimpl historydepartment) {
 		this.departmentService = departmentService;
 		this.historydepartment = historydepartment;
 	}
 	//---------------------------------------------- DEPARTMENT ------------------------------------------------------------------
 	@GetMapping
 	public Iterable<Department> indexDepartment() {
-		return departmentService.getAll();
+		return departmentService.findAll();
 	}
 	@PutMapping
 	public void updateDepartment(@RequestBody Department de) {
-		departmentService.update(de);
+		departmentService.upDateDepartment(de);
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable("id") Integer id) {
-		departmentService.deleteById(id);
+		departmentService.delete(id);
 	}
 
 	@GetMapping("/{id}")
 	public Department getById(@PathVariable("id") Integer id) {
-		return departmentService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid id"));
+		return departmentService.findDepartmentById(id);
 	}
 
 	@GetMapping("/search/groupname")

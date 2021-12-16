@@ -58,4 +58,12 @@ public class DepartmentServiceIMPL implements departmentService{
 		
 	}
 	
+	@Override
+	public void delete (Integer id) {
+		dr.deleteById(id);
+	}
+	public List<Department> findAllByNameGrup(String name) {
+		return dr.findAllByNameGrup(name);
+	}
+	
 }
