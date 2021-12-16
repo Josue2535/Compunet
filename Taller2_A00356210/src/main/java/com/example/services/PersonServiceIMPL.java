@@ -62,6 +62,10 @@ public class PersonServiceIMPL implements PersonService{
 		
 		return personRepo.getAll().size();
 	}
+	public void deleteById(Integer id) {
+		// TODO Auto-generated method stub
+		personRepo.deleteById(id);
+	}
 	
 	
 

@@ -50,20 +50,17 @@ public class PersonController {
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable("id") Integer id) {
-<<<<<<< HEAD:Taller2_A00356210/src/main/java/com/example/model/restcontroller/PersonController.java
 		personService.deleteById(id);
-=======
 		personService.deletPerson(id);
->>>>>>> 8517ef85b2777b6a6edd6dd5e584e0b90bc21bb1:Taller2_A00356210/src/main/java/com/example/model/controller/PersonController.java
 	}
 
 	@GetMapping("/{id}")
 	public Person getById(@PathVariable("id") Integer id) {
-<<<<<<< HEAD:Taller2_A00356210/src/main/java/com/example/model/restcontroller/PersonController.java
-		return personService.get(id).orElseThrow(() -> new IllegalArgumentException("Invalid id"));
-=======
-		return personService.findPersonById(id);
->>>>>>> 8517ef85b2777b6a6edd6dd5e584e0b90bc21bb1:Taller2_A00356210/src/main/java/com/example/model/controller/PersonController.java
+		Person temp = personService.findPersonById(id);
+		if(temp == null) {
+			throw new IllegalArgumentException("Invalid id");
+		}
+		return temp;
 	}
 	
 	

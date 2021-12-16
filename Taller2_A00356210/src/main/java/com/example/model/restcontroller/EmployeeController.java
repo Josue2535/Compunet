@@ -57,15 +57,11 @@ public class EmployeeController {
 
 	@GetMapping("/{id}")
 	public Employee getById(@PathVariable("id") Integer id) {
-<<<<<<< HEAD:Taller2_A00356210/src/main/java/com/example/model/restcontroller/EmployeeController.java
-		return employeeService.get(id).orElseThrow(() -> new IllegalArgumentException("Invalid id"));
-=======
 		Employee temp = employeeService.findEmployeeByiD(id);
 		if(temp == null) {
 			throw new IllegalArgumentException("Invalid id");
 		}
 		return employeeService.findEmployeeByiD(id);
->>>>>>> 8517ef85b2777b6a6edd6dd5e584e0b90bc21bb1:Taller2_A00356210/src/main/java/com/example/model/controller/EmployeeController.java
 	}
 
 	@GetMapping("/search/betwendates")
