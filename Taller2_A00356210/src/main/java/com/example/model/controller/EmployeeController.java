@@ -34,24 +34,20 @@ import com.example.services.PersonServiceIMPL;
 @RequestMapping("/api/Employee/")
 public class EmployeeController {
 	
-	EmployeeDAOimpl employeeService;
-	PersonServiceIMPL personService;
-	EmployeepayhistoryServiceIMPL employeehistorypayService;
+	EmployeeServiceIMP employeeService;
 	
 	@Autowired
-	public EmployeeController(EmployeeDAOimpl employeeService, EmployeepayhistoryServiceIMPL employeehistorypayService, PersonServiceIMPL personService) {
+	public EmployeeController(EmployeeServiceIMP employeeService) {
 		this.employeeService = employeeService;
-		this.personService = personService;
-		this.employeehistorypayService = employeehistorypayService;
 	}
 	
 	@GetMapping
 	public Iterable<Employee> indexDepartment() {
-		return employeeService.getAll();
+		return employeeService.findAll();
 	}
 	@PutMapping
 	public void updateAutotransition(@RequestBody Employee de) {
-		employeeService.update(de);
+		employeeService.upDateEmployee(de);
 	}
 
 	@DeleteMapping("/{id}")
@@ -61,7 +57,11 @@ public class EmployeeController {
 
 	@GetMapping("/{id}")
 	public Employee getById(@PathVariable("id") Integer id) {
-		return employeeService.get(id).orElseThrow(() -> new IllegalArgumentException("Invalid id"));
+		Employee temp = employeeService.findEmployeeByiD(id);
+		if(temp == null) {
+			throw new IllegalArgumentException("Invalid id");
+		}
+		return employeeService.findEmployeeByiD(id);
 	}
 
 	@GetMapping("/search/betwendates")

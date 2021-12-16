@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -31,13 +32,14 @@ import com.example.services.EmployeedepartmenthistoryServiceIMPL;
 
 
 @Controller
+@RequestMapping("/api/historydepartment/")
 public class HistoryDepartmentController {
 	
-	DepartmentDAOimpl departmentService;
+	DepartmentServiceIMPL departmentService;
 	EmployeedepartmenthistoryDAOimpl historydepartment;
 	
 	@Autowired
-	public HistoryDepartmentController(DepartmentDAOimpl departmentService, EmployeedepartmenthistoryDAOimpl historydepartment) {
+	public HistoryDepartmentController(DepartmentServiceIMPL departmentService, EmployeedepartmenthistoryDAOimpl historydepartment) {
 		this.departmentService = departmentService;
 		this.historydepartment = historydepartment;
 	}
