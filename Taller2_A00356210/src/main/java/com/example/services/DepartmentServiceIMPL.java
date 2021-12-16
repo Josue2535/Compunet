@@ -2,6 +2,7 @@ package com.example.services;
 
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,7 @@ public class DepartmentServiceIMPL implements departmentService{
 		return dr.findById(id).get();
 	}
 	
-	public Iterable<Department> findAll(){
+	public List<Department> findAll(){
 		return dr.getAll();
 	}
 	

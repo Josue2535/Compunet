@@ -32,26 +32,23 @@ import com.example.services.PersonServiceIMPL;
 @Controller
 @RequestMapping("/api/historypay/")
 public class HistoryPayController {
-	
-	EmployeeServiceIMP employeeService;
-	PersonServiceIMPL personService;
-	EmployeepayhistoryDAOimpl employeehistorypayService;
+
+	EmployeepayhistoryServiceIMPL employeehistorypayService;
 	
 	@Autowired
-	public HistoryPayController(EmployeeServiceIMP employeeService, EmployeepayhistoryDAOimpl employeehistorypayService, PersonServiceIMPL personService) {
-		this.employeeService = employeeService;
-		this.personService = personService;
+	public HistoryPayController(EmployeepayhistoryServiceIMPL employeehistorypayService) {
+
 		this.employeehistorypayService = employeehistorypayService;
 	}
 	
 	
 	@GetMapping
 	public Iterable<Employeepayhistory> indexDepartmentHistory() {
-		return employeehistorypayService.getAll();
+		return employeehistorypayService.findAll();
 	}
 	@PutMapping
 	public void updateDepartment(@RequestBody Employeepayhistory de) {
-		employeehistorypayService.update(de);
+		employeehistorypayService.updateHistoryPay(de);
 	}
 
 	@DeleteMapping("/{id}")
@@ -61,7 +58,7 @@ public class HistoryPayController {
 
 	@GetMapping("/{id}")
 	public Employeepayhistory getById(@PathVariable("id") Integer id) {
-		return employeehistorypayService.get(id).orElseThrow(() -> new IllegalArgumentException("Invalid id"));
+		return employeehistorypayService.findPayHistoryById(id).orElseThrow(() -> new IllegalArgumentException("Invalid id"));
 	}
 	
 	

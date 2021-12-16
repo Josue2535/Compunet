@@ -2,6 +2,7 @@ package com.example.model.restcontroller;
 
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -35,31 +36,29 @@ import com.example.services.EmployeedepartmenthistoryServiceIMPL;
 @RequestMapping("/api/historydepartment/")
 public class HistoryDepartmentController {
 	
-	DepartmentServiceIMPL departmentService;
-	EmployeedepartmenthistoryDAOimpl historydepartment;
+	EmployeedepartmenthistoryServiceIMPL departmentService;
 	
 	@Autowired
-	public HistoryDepartmentController(DepartmentServiceIMPL departmentService, EmployeedepartmenthistoryDAOimpl historydepartment) {
+	public HistoryDepartmentController(EmployeedepartmenthistoryServiceIMPL departmentService) {
 		this.departmentService = departmentService;
-		this.historydepartment = historydepartment;
 	}
 	
 	@GetMapping
-	public Iterable<Employeedepartmenthistory> indexDepartmentHistory() {
-		return historydepartment.getAll();
+	public List<Employeedepartmenthistory> indexDepartmentHistory() {
+		return departmentService.findAll();
 	}
 	@PutMapping
 	public void updateDepartment(@RequestBody Employeedepartmenthistory de) {
-		historydepartment.update(de);
+		departmentService.update(de);
 	}
 
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable("id") Integer id) {
-		historydepartment.deleteById(id);
+		departmentService.deleteById(id);
 	}
 
 	@GetMapping("/{id}")
 	public Employeedepartmenthistory getById(@PathVariable("id") Integer id) {
-		return historydepartment.get(id).orElseThrow(() -> new IllegalArgumentException("Invalid id"));
+		return departmentService.findDepartmentHistory(id);
 	}
 }

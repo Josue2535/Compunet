@@ -65,4 +65,8 @@ public class EmployeepayhistoryServiceIMPL implements com.example.services.Emplo
 	public Long size(){
 		return (long) employPayHistoriR.getAll().size();
 	}
+	public void deleteById(Integer id) {
+		// TODO Auto-generated method stub
+		employPayHistoriR.deleteById(id);
+	}
 }

@@ -2,6 +2,7 @@ package com.example.bussinessdelegate;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
@@ -19,7 +20,10 @@ public interface BusinessDelegate {
 	List<Department> getAllByNameGroup(String name);
 	
 	//Employeedepartmenthistory
-
+	Iterable<Employeedepartmenthistory> indexDepartmentHistory();
+	void updateDepartmentHistory(Employeedepartmenthistory de);
+	void deleteDepartmentHistory(Integer id);
+	Employeedepartmenthistory getById(@PathVariable("id") Integer id);
 	
 	//Employeepayhistory
 	

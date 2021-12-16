@@ -2,6 +2,7 @@ package com.example.services;
 
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Optional;
 
 import org.hibernate.internal.build.AllowSysOut;
@@ -10,18 +11,18 @@ import org.springframework.stereotype.Service;
 
 import com.example.dao.EmployeedepartmenthistoryDAO;
 import com.example.daoimpl.DepartmentDAOimpl;
+import com.example.daoimpl.EmployeedepartmenthistoryDAOimpl;
 import com.example.model.hr.Employee;
 import com.example.repositories.Department;
 import com.example.repositories.Employeedepartmenthistory;
 
 @Service
 public class EmployeedepartmenthistoryServiceIMPL implements com.example.services.EmployeedepartmenthistoryService{
-	private DepartmentDAOimpl deoR;
-	private EmployeedepartmenthistoryDAO eR;
+	private EmployeedepartmenthistoryDAOimpl deoR;
 	@Autowired
-	public EmployeedepartmenthistoryServiceIMPL(EmployeedepartmenthistoryDAO eR, DepartmentDAOimpl deoR) {
+	public EmployeedepartmenthistoryServiceIMPL( EmployeedepartmenthistoryDAOimpl deoR) {
 		this.deoR = deoR;
-		this.eR = eR;
+
 	}
 
 
@@ -33,7 +34,7 @@ public class EmployeedepartmenthistoryServiceIMPL implements com.example.service
 				if(deoR.get(eh.getDepartment().getDepartmentid())!=null) {
 					if(eh.getModifieddate().equals(LocalDate.now())) {
 						System.out.println("guardo history");
-						eR.save(eh);
+						deoR.save(eh);
 					}
 				}
 			}
@@ -42,26 +43,35 @@ public class EmployeedepartmenthistoryServiceIMPL implements com.example.service
 	}
 
 	@Override
-	public void updateHistoryDepartment(com.example.model.hr.Employeedepartmenthistory historydepartment, Integer id) {
-					com.example.model.hr.Employeedepartmenthistory historydepartment1 = eR.get(id).get();
-					LocalDate date1 = LocalDate.parse(historydepartment.getEnddate1());
-					historydepartment1.setEnddate(date1);
-					
-					LocalDate date2 = LocalDate.parse(historydepartment.getModifieddate1());
-					historydepartment1.setModifieddate(date2);
+	public void updateHistoryDepartment(com.example.model.hr.Employeedepartmenthistory historydepartment) {
+					deoR.update(historydepartment);
 					
 	}
 	
-	public Iterable<com.example.model.hr.Employeedepartmenthistory> findAll(){
-		return eR.getAll();
+	public List<com.example.model.hr.Employeedepartmenthistory> findAll(){
+		return deoR.getAll();
 	}
 	
 	public Long size(){
-		return (long) eR.getAll().size();
+		return (long) deoR.getAll().size();
 	}
 	
-	public Optional<com.example.model.hr.Employeedepartmenthistory> findDepartmentHistory(Integer id) {
-		return eR.get(id);   
-		}
+	public com.example.model.hr.Employeedepartmenthistory findDepartmentHistory(Integer id) {
+		return deoR.get(id).get();   
+	}
+
+
+
+	public void update(com.example.model.hr.Employeedepartmenthistory de) {
+		// TODO Auto-generated method stub
+		deoR.update(de);
+	}
+
+
+
+	public void deleteById(Integer id) {
+		// TODO Auto-generated method stub
+		deoR.deleteById(id);
+	}
 
 }
