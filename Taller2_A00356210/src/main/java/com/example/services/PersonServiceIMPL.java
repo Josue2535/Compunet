@@ -20,7 +20,7 @@ public class PersonServiceIMPL implements PersonService{
 	public void savePerson(Person p) {
 		if(p.getTitle().length() >= 5) {
 			
-			personRepo.insert(p);
+			personRepo.save(p);
 		}
 		
 	}
@@ -34,12 +34,12 @@ public class PersonServiceIMPL implements PersonService{
 	@Override
 	public ArrayList<Person> findAll() {
 		
-		return (ArrayList<Person>) personRepo.findAll();
+		return (ArrayList<Person>) personRepo.getAll();
 	}
 
 	@Override
 	public void deletPerson(Integer id) {
-		personRepo.delete(personRepo.get(id).get());
+		personRepo.deleteById(id);
 	}
 
 	@Override
@@ -48,32 +48,13 @@ public class PersonServiceIMPL implements PersonService{
 		
 	}
 	@Override
-	public void upDatePerson(Person p, Integer id) {
-		Person temp = personRepo.get(id).get();
-		temp.setAdditionalcontactinfo(p.getAdditionalcontactinfo());
-		temp.setBusinessentity(p.getBusinessentity());
-		temp.setBusinessentitycontacts(p.getBusinessentitycontacts());
-		temp.setDemographics(p.getDemographics());
-		temp.setEmailaddresses(p.getEmailaddresses());
-		temp.setEmailpromotion(p.getEmailpromotion());
-		temp.setEmailaddresses(p.getEmailaddresses());
-		temp.setEmployee(p.getEmployee());
-		temp.setFirstname(p.getFirstname());
-		temp.setMiddlename(p.getMiddlename());
-		temp.setLastname(p.getLastname());
-		temp.setModifieddate(p.getModifieddate());
-		temp.setNamestyle(p.getNamestyle());
-		temp.setPassword(p.getPassword());
-		temp.setPersonphones(p.getPersonphones());
-		temp.setPersontype(p.getPersontype());
-		temp.setRowguid(p.getRowguid());
-		temp.setTitle(p.getTitle());
-		personRepo.insert(temp);
+	public void upDatePerson(Person p) {
+		personRepo.update(p);
 	}
 	@Override
 	public long size() {
 		
-		return personRepo.findAll().size();
+		return personRepo.getAll().size();
 	}
 	
 	

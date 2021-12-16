@@ -8,5 +8,4 @@ public interface departmentService{
 	public void saveDepartment(Department d);
 	public void upDateDepartment(Department d);
 	public Department findDepartmentById(Integer id);
-	void updateDepartment(Department department, Integer id);
 }

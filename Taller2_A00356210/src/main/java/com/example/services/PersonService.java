@@ -14,7 +14,7 @@ public interface PersonService {
 	public ArrayList<Person>findAll();
 	public void deletPerson(Integer id);
 	public void addEmployeePerson(Integer id, Integer employee);
-	public void upDatePerson(Person p, Integer id);
+	public void upDatePerson(Person p);
 	public long size();
 	 
 }

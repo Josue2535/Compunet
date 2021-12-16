@@ -28,7 +28,7 @@ public class PersonDAOimpl implements PersonDAO {
 	}
 	
 	@Override
-	public Optional<Person> get(Long id) {
+	public Optional<Person> get(Integer id) {
 		return Optional.ofNullable(entityManager.find(Person.class, id));
 	}
 
@@ -52,7 +52,7 @@ public class PersonDAOimpl implements PersonDAO {
 
 	@Override
 	@Transactional
-	public void deleteById(Long locId) {
+	public void deleteById(Integer locId) {
 		Person loc = get(locId).orElse(null);
 		executeInsideTransaction(entityManager -> entityManager.remove(loc));
 	}

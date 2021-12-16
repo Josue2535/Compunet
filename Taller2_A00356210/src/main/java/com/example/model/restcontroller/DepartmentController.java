@@ -1,4 +1,4 @@
-package com.example.model.controller;
+package com.example.model.restcontroller;
 
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -56,12 +56,12 @@ public class DepartmentController {
 	}
 
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") Long id) {
+	public void delete(@PathVariable("id") Integer id) {
 		departmentService.deleteById(id);
 	}
 
 	@GetMapping("/{id}")
-	public Department getById(@PathVariable("id") Long id) {
+	public Department getById(@PathVariable("id") Integer id) {
 		return departmentService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid id"));
 	}
 

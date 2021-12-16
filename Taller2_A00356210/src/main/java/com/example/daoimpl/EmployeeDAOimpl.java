@@ -29,7 +29,7 @@ public class EmployeeDAOimpl implements EmployeeDAO{
 	}
 	
 	@Override
-	public Optional<Employee> get(Long id) {
+	public Optional<Employee> get(Integer id) {
 		return Optional.ofNullable(entityManager.find(Employee.class, id));
 	}
 
@@ -53,7 +53,7 @@ public class EmployeeDAOimpl implements EmployeeDAO{
 
 	@Override
 	@Transactional
-	public void deleteById(Long locId) {
+	public void deleteById(Integer locId) {
 		Employee loc = get(locId).orElse(null);
 		executeInsideTransaction(entityManager -> entityManager.remove(loc));
 	}
