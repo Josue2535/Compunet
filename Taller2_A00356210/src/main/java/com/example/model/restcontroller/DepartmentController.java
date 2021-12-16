@@ -66,7 +66,7 @@ public class DepartmentController {
 	}
 
 	@GetMapping("/search/groupname")
-	public List<Department> getAllByNameGroup(@RequestParam("active") String name) {
+	public List<Department> getAllByNameGroup(@RequestParam("name") String name) {
 		return departmentService.findAllByNameGrup(name);
 	}
 
