@@ -2,6 +2,7 @@ package com.example.model.restcontroller;
 
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class HistoryPayController {
 	
 	
 	@GetMapping
-	public Iterable<Employeepayhistory> indexDepartmentHistory() {
+	public List<Employeepayhistory> indexDepartmentHistory() {
 		return employeehistorypayService.findAll();
 	}
 	@PutMapping

@@ -2,6 +2,7 @@ package com.example.services;
 
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,7 +59,7 @@ public class EmployeepayhistoryServiceIMPL implements com.example.services.Emplo
 	public Optional<com.example.model.hr.Employeepayhistory> findPayHistoryById(Integer id) {
 		return employPayHistoriR.get(id);
 	}
-	public Iterable<com.example.model.hr.Employeepayhistory> findAll(){
+	public List<com.example.model.hr.Employeepayhistory> findAll(){
 		return employPayHistoriR.getAll();
 	}
 	
