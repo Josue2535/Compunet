@@ -64,12 +64,12 @@ public class EmployeeController {
 		return employeeService.findEmployeeByiD(id);
 	}
 
-	@GetMapping("/search/betwendates")
-	public List<Employee> getAllBetwenDates(@RequestParam("date1") Date date1,@RequestParam("date2") Date date2) {
+	@GetMapping("/search/{date1}/{date2}")
+	public List<Employee> getAllBetwenDates(@PathVariable("date1") String date1,@PathVariable("date2") String date2) {
 		return employeeService.findBetwenDate(date1.toString(), date2.toString());
 	}
-	@GetMapping("/search/date")
-	public List<Employee> getAllByDate(@RequestParam("date1") Date date1) {
+	@GetMapping("/search/{date}")
+	public List<Employee> getAllByDate(@PathVariable("date1") String date1) {
 		return employeeService.findByDate(date1.toString());
 	}
 	
