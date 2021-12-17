@@ -27,7 +27,7 @@ public class ShiftController {
 	}
 	//----------------------------------------SHIFT----------------------------------------------
 	@GetMapping
-	public List<Shift> indexDepartmentHistory() {
+	public List<Shift> indexShift() {
 		return shiftService.findAll();
 	}
 	@PutMapping

@@ -15,6 +15,8 @@ import com.example.model.hr.Department;
 import com.example.model.hr.Employee;
 import com.example.model.hr.Employeedepartmenthistory;
 import com.example.model.hr.Employeepayhistory;
+import com.example.model.hr.Shift;
+import com.example.model.person.Emailaddress;
 import com.example.model.person.Person;
 
 public class BusinessDelegateImpl implements BusinessDelegate {
@@ -27,6 +29,8 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 	private final static String DATE = EMPLOYEE + "/search/";
 	private final static String PAY = URL + "/historypay/";
 	private final static String DEPARTMENTHISTORY = URL + "/historydepartment/";
+	private final static String SHIFT = URL + "/shift/";
+	private final static String EMAIL = URL + "/email/";
 	
 	private RestTemplate restTemplate;
 	
@@ -165,6 +169,12 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 	}
 
 	@Override
+	public void deleteEmployee(Integer id) {
+		// TODO Auto-generated method stub
+		restTemplate.delete(EMPLOYEE+id);
+	}
+
+	@Override
 	public Employee getEmployeeById(Integer id) {
 		// TODO Auto-generated method stub
 		return restTemplate.getForObject(EMPLOYEE+id, Employee.class);
@@ -188,6 +198,57 @@ public class BusinessDelegateImpl implements BusinessDelegate {
 		Employee[] array = restTemplate.getForObject(DATE+date1+"/"+date2.toString(), Employee[].class);
 
         return Arrays.asList(array);
+	}
+	// ------------------------- EMAIL ------------------------
+	@Override
+	public List<Emailaddress> indexEmail() {
+		Emailaddress[] array = restTemplate.getForObject(EMAIL, Emailaddress[].class);
+
+        return Arrays.asList(array);
+	}
+
+	@Override
+	public void updateEmail(Emailaddress de) {
+		// TODO Auto-generated method stub
+		restTemplate.put(EMAIL, de, Emailaddress.class);
+	}
+
+	@Override
+	public void deleteEmail(Integer id) {
+		// TODO Auto-generated method stub
+		restTemplate.delete(EMAIL+id);
+	}
+
+	@Override
+	public Emailaddress getById(Integer id) {
+		// TODO Auto-generated method stub
+		return restTemplate.getForObject(EMAIL+id, Emailaddress.class);
+	}
+
+	//------------------------ SHIFT ----------------------------------
+	
+	@Override
+	public List<Shift> indexShift() {
+		Shift[] array = restTemplate.getForObject(SHIFT, Shift[].class);
+
+        return Arrays.asList(array);
+	}
+
+	@Override
+	public void updateShift(Shift de) {
+		// TODO Auto-generated method stub
+		restTemplate.put(SHIFT, de, Shift.class);
+	}
+
+	@Override
+	public void deleteShift(Integer id) {
+		// TODO Auto-generated method stub
+		restTemplate.delete(SHIFT+id);
+	}
+
+	@Override
+	public Shift getShiftById(Integer id) {
+		return restTemplate.getForObject(SHIFT+id, Shift.class);
 	}
 
 }
