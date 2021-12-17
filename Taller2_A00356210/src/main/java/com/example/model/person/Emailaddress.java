@@ -5,9 +5,14 @@ import java.sql.Timestamp;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
 
 /**
  * The persistent class for the emailaddress database table.
@@ -18,8 +23,11 @@ import javax.persistence.NamedQuery;
 public class Emailaddress implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@EmbeddedId
-	private EmailaddressPK id;
+	@Id
+	@NotNull
+	@SequenceGenerator(name = "EMAIL_GENERATOR", allocationSize = 1, sequenceName = "EMAIL_SEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "EMAIL_GENERATOR")
+	private Integer id;
 
 	private String emailaddress;
 
@@ -39,7 +47,7 @@ public class Emailaddress implements Serializable {
 		return this.emailaddress;
 	}
 
-	public EmailaddressPK getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
@@ -59,7 +67,7 @@ public class Emailaddress implements Serializable {
 		this.emailaddress = emailaddress;
 	}
 
-	public void setId(EmailaddressPK id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
