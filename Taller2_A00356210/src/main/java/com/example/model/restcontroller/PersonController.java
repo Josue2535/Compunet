@@ -41,7 +41,7 @@ public class PersonController {
 	}
 	//----------------------------------------PERSON----------------------------------------------
 	@GetMapping
-	public List<Person> indexDepartmentHistory() {
+	public List<Person> indexPerson() {
 		return personService.findAll();
 	}
 	@PutMapping
@@ -52,7 +52,6 @@ public class PersonController {
 	@DeleteMapping("/{id}")
 	public void deletePerson(@PathVariable("id") Integer id) {
 		personService.deleteById(id);
-		personService.deletPerson(id);
 	}
 
 	@GetMapping("/{id}")
